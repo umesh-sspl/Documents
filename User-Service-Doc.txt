@@ -1,0 +1,584 @@
+﻿User-Service
+
+Tables: 
+eg_address
+eg_role
+eg_user
+eg_user_address
+eg_user_audit_table
+eg_user_login_failed_attempts
+eg_userrole
+eg_userrole_v1
+egov_user_schema_versions
+
+ERDiagram :- 
+
+
+# User Creation using postman 
+1. Super-User-Creation (State-level) : 
+For Create superuser , (We need to Port Forward User-Service on 8080)
+
+URL :- http://localhost:8080/user/users/_createnovalidate
+
+-> When user is created  or updated, data will save on 3 tables :- 
+    • eg_user
+    • eg_user_address
+    • eg_userrole_v1 
+
+Request :- 
+
+{
+    "requestInfo": {
+        "apiId": "Rainmaker",
+        "ver": ".01",
+        "ts": null,
+        "action": "_create",
+        "did": "1",
+        "key": "",
+        "msgId": "20170310130900|en_IN"       
+    },
+    "user": {
+        "userName": "SUPERUSER",
+        "name": "Super User",
+        "gender": null,
+        "mobileNumber": "8855899244",
+        "type": "EMPLOYEE",
+        "active": true,
+        "password": "eGov@4321",
+        "roles": [
+            {
+                "name": "Employee",
+                "code": "EMPLOYEE",
+                "tenantId": "pg"
+            },
+            {
+                "name": "PGR LME",
+                "code": "PGR_LME",
+                "tenantId": "pg"
+            },
+            {
+                "code": "GRO",
+                "name": "Grievance Routing Officer",
+                "description": null,
+                "tenantId": "pg"
+            },
+            {
+                "name": "superuser",
+                "code": "SUPERUSER",
+                "tenantId": "pg"
+            },
+            {
+                "code": "HRMS_ADMIN",
+                "name": "HRMS Admin",
+                "tenantId": "pg"
+            }
+        ],
+        "tenantId": "pg"
+    }
+}
+
+
+Response :- 
+{
+    "responseInfo": {
+        "apiId": null,
+        "ver": null,
+        "ts": null,
+        "resMsgId": null,
+        "msgId": null,
+        "status": "200"
+    },
+    "user": [
+        {
+            "id": 264,
+            "userName": "SUPERUSER",
+            "salutation": null,
+            "name": "Super User",
+            "gender": null,
+            "mobileNumber": "8855899244",
+            "emailId": null,
+            "altContactNumber": null,
+            "pan": null,
+            "aadhaarNumber": null,
+            "permanentAddress": null,
+            "permanentCity": null,
+            "permanentPinCode": null,
+            "correspondenceAddress": null,
+            "correspondenceCity": null,
+            "correspondencePinCode": null,
+            "active": true,
+            "locale": null,
+            "type": "EMPLOYEE",
+            "accountLocked": false,
+            "accountLockedDate": null,
+            "fatherOrHusbandName": null,
+            "relationship": null,
+            "signature": null,
+            "bloodGroup": null,
+            "photo": null,
+            "identificationMark": null,
+            "createdBy": null,
+            "password": null,
+            "otpReference": null,
+            "lastModifiedBy": null,
+            "tenantId": "pg",
+            "roles": [
+                {
+                    "code": "EMPLOYEE",
+                    "name": "Employee",
+                    "tenantId": "pg"
+                },
+                {
+                    "code": "GRO",
+                    "name": "Grievance Routing Officer",
+                    "tenantId": "pg"
+                },
+                {
+                    "code": "PGR_LME",
+                    "name": "PGR Last Mile Employee",
+                    "tenantId": "pg"
+                },
+                {
+                    "code": "SUPERUSER",
+                    "name": "Super User",
+                    "tenantId": "pg"
+                },
+                {
+                    "code": "HRMS_ADMIN",
+                    "name": "HRMS ADMIN",
+                    "tenantId": "pg"
+                }
+            ],
+            "uuid": "7050af58-615a-4010-8f46-0b92350bf448",
+            "createdDate": "06-03-2025 16:02:16",
+            "lastModifiedDate": "06-03-2025 16:02:16",
+            "dob": null,
+            "pwdExpiryDate": "04-06-2025 16:02:16"
+        }
+    ]
+}
+
+2. User-Creation (ULB level) :- (finance-user-creation)
+
+URL :- http://uat.sparrowsoftech.info/user/users/_createnovalidate
+
+Note :- for creating city level user you need authToken of superuser(state level auth token)
+
+Request:- 
+{
+    "requestInfo": {
+        "apiId": "Rainmaker",
+        "ver": ".01",
+        "ts": null,
+        "action": "_update",
+        "did": "1",
+        "key": "",
+        "msgId": "20170310130900|en_IN",
+        "authToken": "c59c61e7-06ac-4ce2-a288-ccb1d733f1d6",
+        "userInfo": {
+            "id": 264,
+            "uuid": "7050af58-615a-4010-8f46-0b92350bf448",
+            "userName": "SUPERUSER",
+            "name": "Super User",
+            "mobileNumber": "8855899244",
+            "emailId": null,
+            "locale": null,
+            "type": "EMPLOYEE",
+            "roles": [
+                {
+                    "name": "Grievance Routing Officer",
+                    "code": "GRO",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "Employee",
+                    "code": "EMPLOYEE",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "PGR Last Mile Employee",
+                    "code": "PGR_LME",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "Super User",
+                    "code": "SUPERUSER",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "HRMS ADMIN",
+                    "code": "HRMS_ADMIN",
+                    "tenantId": "pg"
+                }
+            ],
+            "active": true,
+            "tenantId": "pg"
+        }
+    },
+    "user": {
+        "userName": "financeuser",
+        "name": "FINANCE USER",
+        "gender": "Male",
+        "mobileNumber": "6201033951",
+        "type": "EMPLOYEE",
+        "active": true,
+        "password": "eGov@4321",
+        "roles": [
+            {
+                "name": "superuser",
+                "code": "SUPERUSER",
+                "tenantId": "pg"
+            },
+            {
+                "name": "superuser",
+                "code": "SUPERUSER",
+                "tenantId": "pg.citya"
+            },
+            {
+                "name": "Employee",
+                "code": "EMPLOYEE",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_BILL_CREATOR",
+                "name": "EGF Bill Creator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_BILL_APPROVER",
+                "name": "EGF Bill Approver",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_VOUCHER_CREATOR",
+                "name": "Finance Voucher Creator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_VOUCHER_APPROVER",
+                "name": "Finance Voucher Approver",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_PAYMENT_CREATOR",
+                "name": "Finance Payment Creator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_PAYMENT_APPROVER",
+                "name": "Finance Payment Approver",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_MASTER_ADMIN",
+                "name": "Finance Master Admin",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_REPORT_VIEW",
+                "name": "Finance Report View",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EMPLOYEE_FINANCE",
+                "name": "Employee Finance",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_ADMINISTRATOR",
+                "name": "Finance Adminsitrator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "HRMS_ADMIN",
+                "name": "HRMS Admin",
+                "tenantId": "pg.citya"
+            }
+        ],
+        "tenantId": "pg.citya"
+    }
+}
+
+===================x===================x=================x=====================
+
+2. After user creation you can login with your username & password :-
+
+Open URL : http://uat.sparrowsoftech.info/employee/user/login
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+URL :- 
+
+Create User : http://localhost:8081/user/users/_createnovalidate                                             calhost:8081/user/users/_createnovalidate
+Update User : http://localhost:8081/user/users/_updatenovalidate
+
+{
+    "requestInfo": {
+        "apiId": "Rainmaker",
+        "ver": ".01",
+        "ts": null,
+        "action": "_update",
+        "did": "1",
+        "key": "",
+        "msgId": "20170310130900|en_IN",
+        "authToken": "084564d7-4a19-4281-89ad-334e02beda6f",
+        "userInfo": {
+            "id": 92,
+            "uuid": "24134f4c-2967-4671-8858-dd339d4e610e",
+            "userName": "SUPERUSER",
+            "name": "Super User",
+            "mobileNumber": "8855899244",
+            "emailId": null,
+            "locale": null,
+            "type": "EMPLOYEE",
+            "roles": [
+                {
+                    "name": "PGR Last Mile Employee",
+                    "code": "PGR_LME",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "Employee",
+                    "code": "EMPLOYEE",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "Grievance Routing Officer",
+                    "code": "GRO",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "Super User",
+                    "code": "SUPERUSER",
+                    "tenantId": "pg"
+                },
+                {
+                    "name": "HRMS ADMIN",
+                    "code": "HRMS_ADMIN",
+                    "tenantId": "pg"
+                }
+            ],
+            "active": true,
+            "tenantId": "pg"
+        }
+    },
+    "user": {
+        "id": 93,
+        "userName": "financeuser",
+        "salutation": "MR.",
+        "name": "FINANCE USER",
+        "gender": "MALE",
+        "mobileNumber": "6201033951",
+        "alternatemobilenumber": null,
+        "emailId": null,
+        "altContactNumber": null,
+        "pan": null,
+        "aadhaarNumber": null,
+        "permanentAddress": null,
+        "permanentCity": null,
+        "permanentPinCode": null,
+        "correspondenceAddress": null,
+        "correspondenceCity": null,
+        "correspondencePinCode": null,
+        "active": true,
+        "locale": null,
+        "type": "EMPLOYEE",
+        "accountLocked": false,
+        "accountLockedDate": null,
+        "fatherOrHusbandName": null,
+        "relationship": null,
+        "signature": null,
+        "bloodGroup": null,
+        "photo": null,
+        "identificationMark": null,
+        "createdBy": 264,
+        "password": null,
+        "otpReference": null,
+        "lastModifiedBy": 264,
+        "tenantId": "pg.citya",
+        "roles": [
+            {
+                "code": "EMPLOYEE",
+                "name": "Employee",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "HRMS_ADMIN",
+                "name": "HRMS ADMIN",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_VOUCHER_CREATOR",
+                "name": "Finance Voucher Creator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_BILL_CREATOR",
+                "name": "EGF Bill Creator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_REPORT_VIEW",
+                "name": "Finance Report View",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EMPLOYEE_FINANCE",
+                "name": "Employee Finance",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_BILL_APPROVER",
+                "name": "EGF Bill Approver",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_PAYMENT_CREATOR",
+                "name": "Finance Payment Creator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "SUPERUSER",
+                "name": "Super User",
+                "tenantId": "pg"
+            },
+            {
+                "code": "EGF_MASTER_ADMIN",
+                "name": "Finance Master Admin",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_ADMINISTRATOR",
+                "name": "Finance Adminsitrator",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_VOUCHER_APPROVER",
+                "name": "Finance Voucher Approver",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "SUPERUSER",
+                "name": "Super User",
+                "tenantId": "pg.citya"
+            },
+            {
+                "code": "EGF_PAYMENT_APPROVER",
+                "name": "Finance Payment Approver",
+                "tenantId": "pg.citya"
+            }
+        ],
+        "uuid": "d9afe444-5d13-4ad2-b8d6-7c98cb9a8ff1",
+        "createdDate": "07-03-2025 07:57:11",
+        "lastModifiedDate": "07-03-2025 07:57:11",
+        "dob": null,
+        "pwdExpiryDate": "05-06-2025 07:57:10"
+    }
+}
+
+
+
+
+3. Access Token :   http://localhost:8081/user/oauth/token
+
+[{"key":"username","value":"SUPERUSER","type":"text"},{"key":"password","value":"eGov@4321","type":"text"},{"key":"grant_type","value":"password","type":"text"},{"key":"scope","value":"read","type":"text"},{"key":"tenantId","value":"pg","type":"text"},{"key":"userType","value":"EMPLOYEE","type":"text"}]
+
+
+4. Forget Password :
+You need to run services : 
+    • egov-enc-service
+    • egov-otp
+    • user-otp
+    • egov-notification-sms
+
+
+
+
+First Send OTP :- 
+
+URL : http://localhost:8090/user-otp/v1/_send?tenantId=pg
+Request :-
+{
+    "RequestInfo": {
+        "apiId": "Rainmaker",
+        "ver": ".01",
+        "ts": "",
+        "action": "token",
+        "did": "1",
+        "key": "",
+        "msgId": "20170310130900|en_IN",
+        "authToken": null
+    },
+    "otp": {
+        "mobileNumber": "6201033951",
+        "type": "passwordreset",
+        "tenantId": "pg.citya",
+        "userType": "EMPLOYEE"
+    }
+}
+
+Response :- 
+{
+    "responseInfo": null,
+    "isSuccessful": true
+}
+
+
+URL:-  http://localhost:8081/user/password/nologin/_update
+
+{
+    "RequestInfo": {
+        "apiId": "Rainmaker",
+        "ver": ".01",
+        "ts": "",
+        "action": "_update",
+        "did": "1",
+        "key": "",
+        "msgId": "20170310130900|en_IN",
+        "authToken": null
+    },
+    "otpReference": "712384",
+    "newPassword": "Sparrow@123",
+    "userName": "finance",
+    "tenantId": "pg.citya",
+    "type": "EMPLOYEE"
+}
+ 
+
+	
+081/user/users/_updatenovalidate
+For more Details : https://upyog-docs.gitbook.io/upyog-v-2.0/upyog-1/platform/configure-upyog/configuring-upyog-service-stack/core-services/user-services
+
+
+
+
+	
+
+
