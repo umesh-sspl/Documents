@@ -193,8 +193,20 @@
         <mxCell id="Sd-maIk0d4MH4gODgqWR-91" value="Enter Net Payable Code" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="570" y="360" width="200" height="42.5" as="geometry" />
         </mxCell>
+        <mxCell id="Sd-maIk0d4MH4gODgqWR-96" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Sd-maIk0d4MH4gODgqWR-93" target="Sd-maIk0d4MH4gODgqWR-95">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="Sd-maIk0d4MH4gODgqWR-93" value="Enter Credit Amount " style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="570" y="440" width="200" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Sd-maIk0d4MH4gODgqWR-98" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Sd-maIk0d4MH4gODgqWR-95" target="Sd-maIk0d4MH4gODgqWR-97">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Sd-maIk0d4MH4gODgqWR-95" value="Enter Credit Amount " style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="314" y="440" width="200" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Sd-maIk0d4MH4gODgqWR-97" value="Upload Documents  " style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="80" y="440" width="200" height="42.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
